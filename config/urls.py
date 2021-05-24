@@ -8,4 +8,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('api/', include('api.urls')),
+    path('<int:short_link_id>/', redirect_to_long_url)
 ]
