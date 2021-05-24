@@ -1,14 +1,21 @@
 from pathlib import Path
 
+from environs import Env
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = Env()
+env.read_env(str(BASE_DIR / '.env'))
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-6zx7s%jz3tl#rv6cv%%#v*lh97wt7=&^)bnfuruw2u)8(%ok&+'
+SECRET_KEY = env.str("SECRET_KEY", default='default-secret-key-123')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DEBUG", default=True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[
+    '127.0.0.1'
+])
 
 INSTALLED_APPS = [
     'shortener',
@@ -89,7 +96,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-BASE_SHORT_HOST = 'http://localhost:8000'
+BASE_SHORT_HOST = env.str("SECRET_KEY", default='http://localhost:8000')
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
