@@ -24,5 +24,10 @@ class ShortLink(TimestampModel):
     def short_url(self):
         return f'{settings.BASE_SHORT_HOST}/{self.id}'
 
+    @property
+    def secret_key(self):
+        """Секретный ключ для удаления короткой ссылки"""
+        return str(hash(f'{self.created_at}_{self.id}_{settings.SECRET_KEY}'))
+
     def __str__(self):
         return f'{self.short_url}'
