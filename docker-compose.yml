@@ -1,0 +1,27 @@
+version: "3"
+
+
+services:
+  web:
+    container_name: shortener_app_web
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/usr/src/app
+    restart: always
+    ports:
+      - "8000:8000"
+
+  nginx:
+    container_name: shortener_app_nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    depends_on:
+      - web
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./static/:/static
