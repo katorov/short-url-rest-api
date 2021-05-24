@@ -96,7 +96,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-BASE_SHORT_HOST = env.str("SECRET_KEY", default='http://localhost:8000')
+BASE_SHORT_HOST = env.str("BASE_SHORT_HOST", default='http://localhost:8000')
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
